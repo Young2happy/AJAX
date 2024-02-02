@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>01.AJAX概念和axios使用</title>
+</head>
+<body>
+    <!-- 引入axios库 -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        axios({
+            url:'http://hmajax.itheima.net/api/province'
+        }).then(result=>{
+            console.log(result)
+            console.log(result.data.list)
+            // 将 数组元素 以行隔开
+            console.log(result.data.list.join('<br>'))
+            // 把省份列表插入页面
+            document.querySelector('body').innerHTML = result.data.list.join('<br>')
+        })
+    </script>
+</body>
+</html>
