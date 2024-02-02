@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>03.查询参数</title>
+</head>
+
+<body>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script>
+        axios({
+            // url:'http://hmajax.itheima.net/api/city?pname=石家庄'
+            url: 'http://hmajax.itheima.net/api/city',
+            params: {
+                pname: '四川省'
+            }
+        }).then(result=>{
+            console.log(result)
+            console.log(result.data.list)
+
+            // 用换行符隔开
+            console.log(result.data.list.join('<br>'))
+            // 在body中显示
+            document.querySelector('body').innerHTML = result.data.list.join('<br>')
+        })
+    </script>
+</body>
+
+</html>
