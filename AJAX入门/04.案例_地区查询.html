@@ -53,9 +53,11 @@
     // 2. 获取省份和城市
     let pname = document.querySelector('input[name=province]').value;
     let cname = document.querySelector('.city').value;
+    // 3. 配置axios请求
     axios({
       url:"http://hmajax.itheima.net/api/area",
       params:{
+        // 同名可简写， pname: pname
         pname,
         cname
       }
@@ -64,13 +66,13 @@
       // console.clear()
       // console.log(result)
 
-      //  3.渲染地区列表
+      //  4.渲染地区列表
       // 获取列表数组
       const arr = result.data.list
-      // 对每个元素操作，转为li标签，map返回的是新数组
+      // 对每个元素操作，转为li标签，map方法返回的是新数组
       let array = arr.map(item=>`<li class="list-group-item">${item}</li>`)
       // console.log(array)
-      // 将新数组转为用 <br> 连接的 字符串，并插入到ul中
+      // 用join方法将新数组转为用 <br> 连接的 字符串，并插入到ul中
       document.querySelector('.list-group').innerHTML = array.join('<br>')
     })
    })   
