@@ -3,7 +3,7 @@
  *  1.1 获取数据
  *  1.2 渲染数据
  */
-const creator = '老张'
+const creator = '老罗'
 // 封装-获取并渲染图书列表函数
 function getBooksList() {
   // 1.1 获取数据
