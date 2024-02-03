@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>js控制弹窗</title>
+  <!-- 引入bootstrap样式 -->
+  <link rel="stylesheet" href="	https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+</head>
+
+<body>
+  <!-- 按钮 控制display -->
+  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target=".myBox">编辑姓名</button>
+  <!-- 弹框标签，默认隐藏 -->
+  <div class="modal myBox" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">请输入姓名</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          姓名：<input type="text" class="username">
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+          <button type="button" class="btn btn-primary save-btn">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- 引人bootstrap.js -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // 获取弹框对象
+    // 首先获取标签 元素
+    const modalDom = document.querySelector('.modal');
+    // 再转为 对象
+    const modal = new bootstrap.Modal(modalDom);
+
+    // 编辑姓名->点击->赋予默认姓名->弹框显示
+    document.querySelector('.btn').addEventListener('click',()=>{
+      document.querySelector('.username').value='默认姓名(张三)'
+      modal.show();
+    })
+    // 保存=》点击=》获取input的value值=》弹框隐藏
+    document.querySelector('.save-btn').addEventListener('click',()=>{
+      const username = document.querySelector('.username').value
+      console.log("模拟保存在服务器",username)
+      modal.hide();
+    })
+  </script>
+
+</body>
+
+</html>
