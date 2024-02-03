@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>02.XMLHttpRequest_查询参数</title>
+</head>
+
+<body>
+  <script>
+    /**
+     * 使用查询参数
+     * */
+
+     const xhr = new XMLHttpRequest()
+    //  使用查询参数，查询省份的城市
+    const cname = '江西省'
+     xhr.open('get',`http://hmajax.itheima.net/api/city?pname=${cname}`)
+     xhr.addEventListener('loadend',()=>{
+      console.log(xhr.response)
+      const data = JSON.parse(xhr.response)
+      console.log(data)
+      document.body.innerHTML = data.list.join('<br>')
+     })
+     xhr.send()
+  </script>
+</body>
+
+</html>
