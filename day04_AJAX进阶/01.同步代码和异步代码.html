@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>同步代码和异步代码</title>
+</head>
+<body>
+    <button>按钮</button>
+    <script>
+        // 观察下列代码输出结果
+        const result = 0 + 1;
+        console.log(result)         // -----> 1
+
+        setTimeout(()=>{
+            console.log(2)          // -----> 2
+        },2000)
+
+        function fn(){
+            console.log(3)          
+        }
+        setTimeout(fn,4000);        // -----> 3
+
+        document.querySelector('button').addEventListener('click',()=>{
+            console.log(4)          // -----> 4
+        })
+        console.log(5)              // -----> 5
+
+        // 1、5 ----》 同步代码
+        // 2 -------》 异步代码
+    </script>
+</body>
+</html>
