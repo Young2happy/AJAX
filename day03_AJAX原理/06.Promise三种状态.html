@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Promise 三种状态</title>
+</head>
+<body>
+    <script>
+        // 1. 创建 Promise 对象，pending——待定状态
+        const p = new Promise((resolve,reject)=>{
+            // Promise 对象创建时，这里代码就会会执行
+            console.log("Promise 内部执行")
+            // 2. 执行异步代码
+            setTimeout(function(){
+                // resolve（）-》 fulfilled——已兑现 -》 then（）
+                resolve("模拟AJAX请求成功")
+                // reject（）-》 rejected——已拒绝 -》 catch（）
+                reject(new Error("模拟AJAX请求失败"))
+            },5000)
+        })
+        console.log(p)
+
+        p.then(function(result){
+            console.log(result)
+        }).catch(function(error){
+            console.log(error)
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03.案例_地区查询</title>
+
+  <style>
+    li {
+      width: 300px;
+      height: 30px;
+      border: 1px solid #000;
+      line-height: 30px;
+      padding-left: 10px;
+    }
+  </style>
+</head>
+
+<body>
+  <form action="">
+    省份名字：<input type="text" value="北京" name="pname">
+    城市名字：<input type="text" value="北京市" name="cname">
+    <br>
+    <br>
+    <button type="button">查询</button>
+    <br>
+    <br>
+    地区列表：
+    <ul>
+      <li>东城区</li>
+    </ul>
+  </form>
+
+  <script>
+    // 根据查询参数获取城市列表
+
+    // 1. 绑定按钮点击事件
+    document.querySelector('button').addEventListener('click', () => {
+      // 2. 获取省份和城市的value
+      const pname = document.querySelector('input').value;
+      const cname = document.querySelector('input:nth-child(2)').value;
+      console.log(pname,cname)
+      // 3. 组织查询参数
+      const qObj = {
+        pname,
+        cname
+      }
+      // 查询参数对象 =》 查询参数字符串
+      const paramsObj = new URLSearchParams(qObj);
+      const queryString = paramsObj.toString();
+      console.log(queryString)
+
+      // 4. 使用 XMLHttpRequest 对象，查询地区列表
+      const xhr = new XMLHttpRequest();
+      xhr.open('get',`http://hmajax.itheima.net/api/area?${queryString}`)
+      xhr.addEventListener('loadend',()=>{
+        console.log(xhr.response)
+        // 利用 parse 将JSON字符串转为对象
+        const data = JSON.parse(xhr.response)
+        const theList = data.list.map(item=>{
+          return `<li>${item}</li>`
+        })
+        console.log(theList)
+        document.querySelector('ul').innerHTML = theList.join('<br>')
+      })
+      xhr.send();
+    })
+
+
+  </script>
+</body>
+
+</html>

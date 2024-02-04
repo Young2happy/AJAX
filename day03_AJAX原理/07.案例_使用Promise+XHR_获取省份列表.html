@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>07.案例_使用Promise+XHR_获取省份列表</title>
+</head>
+
+<body>
+  <script>
+    // 1.创建 Promise 对象，管理异步代码
+    const p = new Promise((resolve, reject) => {
+      // 2. 创建 XHR 对象，配置请求
+      const xhr = new XMLHttpRequest();
+      xhr.open('get', 'http://hmajax.itheima.net/api/province')
+      xhr.addEventListener('loadend', () => {
+        console.log(xhr)
+        // 3. 通过状态码判断 响应 成功 or 失败
+        // 2xx 都是成功
+        if (xhr.statusText === "OK") {
+          resolve(JSON.parse(xhr.response))
+        }else {
+          reject(new Error(xhr.response))
+        }
+      })
+      xhr.send();
+    })
+    p.then(result => {
+      console.log(result)
+      document.body.innerHTML = result.list.join('<br>')
+    }).catch(error => {
+      console.log(error)
+      // 错误信息用 dir（）
+      console.dir(error)
+      document.body.innerHTML = error.message
+    })
+  </script>
+</body>
+
+</html>

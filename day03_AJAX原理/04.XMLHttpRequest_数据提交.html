@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>04.XMLHttpRequest_数据提交</title>
+  <style>
+    .register-btn {
+      width: 70px;
+      height: 30px;
+      text-align: center;
+      border-radius: 30px;
+      color: #fff;
+      background-color: rgb(31, 126, 204);
+      border: none
+    }
+  </style>
+</head>
+
+<body>
+  <button class="register-btn">注册</button>
+
+  <script>
+    // 1. 按钮点击事件
+    document.querySelector('.register-btn').addEventListener('click', () => {
+      // 1.1 配置请求对象
+      // 1.1.1 创建 XML对象
+      const xhr = new XMLHttpRequest()
+      // 1.1.2 请求方法及请求地址
+      xhr.open('post','http://hmajax.itheima.net/api/register')
+      // 设置请求头 —— 告诉服务器的请求内容类型
+      xhr.setRequestHeader('content-Type','application/json')
+
+      xhr.addEventListener('loadend',()=>{
+        console.log(xhr.response)
+      })
+      // 准备数据
+      const user = {
+        username:'young2happy',
+        password:'11111111'
+      }
+      // 转为JSON字符串
+      const userStr = JSON.stringify(user)
+      // console.log(userStr)
+      // 发出请求,参数为 准备提交的数据
+      xhr.send(userStr)
+    })
+  </script>
+</body>
+
+</html>

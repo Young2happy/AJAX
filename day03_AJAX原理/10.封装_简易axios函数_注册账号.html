@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>10.封装_简易axios函数_注册账号</title>
+</head>
+
+<body>
+  <button>注册账户</button>
+  <script>
+    // 封装自定义 myAxios 函数
+    function myAxios(config) {
+      return new Promise((resolve, reject) => {
+        const xhr = new XMLHttpRequest()
+
+        // ulr ? 连接查询参数
+        if (config.params) {
+          const queryObj = new URLSearchParams(config.params)
+          const paramsString = queryObj.toString();
+          config.url += `?${paramsString}`
+        }
+        xhr.open(config.method || 'get', config.url)
+        xhr.addEventListener('loadend', () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            resolve(JSON.parse(xhr.response))
+          } else reject(new Error(xhr.response))
+        })
+        // 判断是否有data参数
+        if (config.data) {
+          // 转为JSON字符串
+          const data = JSON.stringify(config.data)
+          console.log(data)
+          // 设置请求头——指定类型
+          xhr.setRequestHeader('content-Type', 'application/json')
+          xhr.send(data)
+        } else xhr.send()
+      })
+    }
+
+    // 按钮点击 =》 注册账户
+    document.querySelector('button').addEventListener('click', () => {
+      // 配置请求，注册账户
+      myAxios({
+        url: 'http://hmajax.itheima.net/api/register',
+        method: 'post',
+        data: {
+          username: 'itheiakfajs;l',
+          password: '11111111'
+        }
+      }).then(result => {
+        console.log(result)
+      }).catch(error => {
+        console.dir(error)
+      })
+    })
+  </script>
+</body>
+
+</html>
